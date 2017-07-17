@@ -36,6 +36,22 @@ client = Metaforce.new :username => 'username',
   :security_token => 'security token'
 ```
 
+Or you can also use access_token, instance_url, metadata_url to create client
+
+```ruby
+:server_url=>"#{instance_url}/services/Soap/u/#{api_version}/#{15_digit_org_id}", 
+#(same as server_url but replace u by m for metadata_server_url)
+:metadata_server_url=> "#{instance_url}/services/Soap/m/#{api_version}/#{15_digit_org_id}"
+```
+
+```ruby
+client = Metaforce.new(
+  session_id: session[:token],
+  server_url: session[:instance_url],
+  metadata_server_url: session[:metadata_url]
+)
+```
+
 Or you can specify the username, password and security token with environment
 variables:
 
@@ -86,7 +102,8 @@ and returns a `Metaforce::Job::Retrieve`.
 manifest = Metaforce::Manifest.new(:custom_object => ['Account'])
 client.retrieve_unpackaged(manifest)
   .extract_to('./tmp')
-  .perform
+  .perform #it will raise error (Savon::SOAP::Fault: (soapenv:Client) No operation available for request {}checkStatus)
+  #ignore this and again call extract_to method which will put unarchived files under give directory
 #=> #<Metaforce::Job::Retrieve @id='1234'>
 ```
 

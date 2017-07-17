@@ -31,7 +31,7 @@ module Metaforce
   end
 
   class Configuration
-    # The Salesforce API version to use. Defaults to 23.0
+    # The Salesforce API version to use. Defaults to 26.0
     attr_accessor :api_version
     # The username to use during login.
     attr_accessor :username
@@ -42,6 +42,10 @@ module Metaforce
     # Set this to true if you're authenticating with a Sandbox instance.
     # Defaults to false.
     attr_accessor :host
+
+    #partner_wsdl and metadata_wsdl also can be configured
+    attr_accessor :partner_wsdl
+    attr_accessor :metadata_wsdl
     # A block that gets called when the session becomes invalid and the
     # client needs to reauthenticate. Passes in the client and the client
     # options. The block should set the options to a hash containing a valid
